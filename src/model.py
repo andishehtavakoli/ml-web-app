@@ -17,7 +17,7 @@ MODELS_LIST = [
     LogisticRegression()]
 
 
-def build_model(df, X_train, y_train, model):
+def build_model(df, model):
     numeric_features = df.select_dtypes(include=[np.number]).columns
     numeric_transformer = Pipeline(
         steps=[('imputer', SimpleImputer(strategy='median')),
@@ -39,9 +39,7 @@ def build_model(df, X_train, y_train, model):
                ("classifier",  model)
               ]
     )
-
-
-    clf.fit(X_train, y_train)
+    
     return clf
 
 

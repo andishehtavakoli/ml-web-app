@@ -50,17 +50,13 @@ def model_eval_pipeline(df, target_col, model):
                   ], remainder='passthrough'
                  )
 
-
-
     clf = Pipeline(
         steps=[
             ('preprocessor', preprocessor),
             ("classifier", model)  # corrected this line
         ]
     )
-    # save model
-    joblib.dump(clf, 'src/model/model.joblib')
-    logger.info('modle saved!')
+
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
     logger.info('X_train, X_test, y_train, y_test have been created!')
@@ -90,6 +86,11 @@ def model_eval_pipeline(df, target_col, model):
     }
 
     return model_metric_dict
+
+def save_model(model, model_filepath):
+    joblib.dump(model, model_filepath)
+    logger.info('modle saved!')
+
 
 if __name__ == "__main__":
     file_path = '/Users/andishetavakkoli/Documents/notebook/ml-web-app/it-customer-churn/src/data/IT_customer_churn.csv'
